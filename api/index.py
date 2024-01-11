@@ -16,7 +16,7 @@ last_toggle_time = 0
 temp_filename = "/tmp/temp_image.png"
 @app.route('/')
 def main_img():
-    
+    print("get /")
     image.save(temp_filename)
     return send_file(temp_filename, mimetype='image/png', as_attachment=True, download_name='image.png')
 
