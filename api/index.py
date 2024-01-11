@@ -10,10 +10,10 @@ image = Image.new('RGB', (100, 100), 'white')
 
 toggle_count = 0
 last_toggle_time = 0
-
+temp_filename = "/tmp/temp_image.png"
 @app.route('/')
 def main_img():
-    temp_filename = "temp_image.png"
+    
     image.save(temp_filename)
     return send_file(temp_filename, mimetype='image/png', as_attachment=True, download_name='image.png')
 
@@ -39,7 +39,6 @@ def toggle_pixel(x, y):
         image.putpixel((x, y), new_color)
         toggle_count = 0  # Reset the toggle count after successful toggle
 
-        temp_filename = "temp_image.png"
         image.save(temp_filename)
         # Return blue 1x1 pixel
         return send_file("blue.png", mimetype='image/png', as_attachment=True, download_name='image.png')
