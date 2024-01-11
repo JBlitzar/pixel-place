@@ -8,7 +8,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Initialize a 100x100 white image
-image = Image.new('RGB', (100, 100), 'white')
+size = 100
+image = Image.new('RGB', (size, size), 'white')
 
 toggle_count = 0
 last_toggle_time = 0
@@ -22,6 +23,8 @@ def main_img():
 
 @app.route('/togglepixel/<int:x>/<int:y>')
 def toggle_pixel(x, y):
+    referrer = request.headers.get('Referer')
+
     global toggle_count, last_toggle_time
 
     current_time = time.time()
@@ -33,8 +36,7 @@ def toggle_pixel(x, y):
     toggle_count += 1
     last_toggle_time = current_time
 
-    if toggle_count == 2:
-        print("togglecount == 2!")
+    if toggle_count == 2 or referrer == "https://www.desmos.com/" and x < size and y < size:
         # Toggle the pixel in the image
         pixel_color = image.getpixel((x, y))
         new_color = (0, 0, 0) if pixel_color == (255, 255, 255) else (255, 255, 255)
