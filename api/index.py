@@ -2,8 +2,10 @@ from flask import Flask, jsonify, Response, send_file
 from PIL import Image
 import time
 from io import BytesIO
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Initialize a 100x100 white image
 image = Image.new('RGB', (100, 100), 'white')
