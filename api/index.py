@@ -11,8 +11,7 @@ CORS(app)
 size = 100
 image = Image.new('RGB', (size, size), 'white')
 
-toggle_count = 0
-last_toggle_time = 0
+
 temp_filename = "/tmp/temp_image.png"
 @app.route('/')
 def main_img():
@@ -23,20 +22,7 @@ def main_img():
 
 @app.route('/togglepixel/<int:x>/<int:y>')
 def toggle_pixel(x, y):
-    referrer = request.headers.get('Referer')
-
-    global toggle_count, last_toggle_time
-
-    current_time = time.time()
-
-    if current_time - last_toggle_time > 30:
-        # Reset if more than 30 seconds have passed since the last toggle
-        toggle_count = 0
-
-    toggle_count += 1
-    last_toggle_time = current_time
-
-    if toggle_count == 2 or referrer == "https://www.desmos.com/" and x < size and y < size:
+    if x < size and y < size:
         # Toggle the pixel in the image
         pixel_color = image.getpixel((x, y))
         new_color = (0, 0, 0) if pixel_color == (255, 255, 255) else (255, 255, 255)
