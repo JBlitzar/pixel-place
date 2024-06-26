@@ -2,7 +2,7 @@ blinker==1.7.0
 click==8.1.7
 Deprecated==1.2.14
 Flask==3.0.0
-Flask-Cors==4.0.0
+Flask-Cors==4.0.1
 Flask-Limiter==3.5.0
 importlib-metadata==7.0.1
 importlib-resources==6.1.1
